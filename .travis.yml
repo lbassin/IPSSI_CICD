@@ -7,3 +7,4 @@ install:
 
 script:
     - phpunit
+    - ./vendor/bin/php-cs-fixer fix --dry-run --verbose --diff --config=.php_cs.dist src
