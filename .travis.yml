@@ -2,8 +2,13 @@ language: php
 php:
     - '7.1'
 
+addons:
+    sonarcloud:
+        organization: "lbassin-github"
+
 install:
     - composer install
 
 script:
+    - sonar-scanner -X
     - phpunit
