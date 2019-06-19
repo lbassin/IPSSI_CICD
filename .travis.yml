@@ -2,11 +2,15 @@ language: php
 php:
     - '7.1'
 
+cache:
+    directories:
+        - $HOME/.composer/cache
+
 services:
     - docker
 
 install:
-    - docker run -v $TRAVIS_BUILD_DIR:/app composer:1.8 install
+    - docker run -v $TRAVIS_BUILD_DIR:/app -v $HOME/.composer/cache:/tmp composer:1.8 install
 
 before_script:
     - pwd
