@@ -13,3 +13,12 @@ install:
 script:
     - docker run -v $(pwd):/usr/src newtmitch/sonar-scanner -Dsonar.projectBaseDir=/usr/src -Dsonar.login=$SONAR_TOKEN
     - docker run -v $(pwd):/app phpunit/phpunit tests
+
+before_deploy:
+    - docker build -t $BUILD_NAME -f docker/prod/Dockerfile .
+
+deploy:
+    provider: script
+    script: echo "Deploy"
+    on:
+        branch: master
