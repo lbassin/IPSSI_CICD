@@ -1,6 +1,4 @@
-language: php
-php:
-    - '7.1'
+language: bash
 
 cache:
     directories:
@@ -12,10 +10,8 @@ services:
 install:
     - docker run -v $(pwd):/app -v $HOME/.composer/cache:/tmp composer:1.8 install
 
-before_script:
-    - pwd
-    - docker run -v $(pwd):/app -w /app alpine ls
-
 script:
-    - docker run -v $(pwd):/root/src newtmitch/sonar-scanner sonar-scanner -X -Dproject.settings=./src/sonar-project.properties -Dsonar.login=$SONAR_TOKEN
+    - docker run -v $(pwd):/root/src newtmitch/sonar-scanner ls
+    - docker run -v $(pwd):/root/src newtmitch/sonar-scanner cat src/sonar-project.properties
+    #    - docker run -v $(pwd):/root/src newtmitch/sonar-scanner sonar-scanner -X -Dproject.settings=./src/sonar-project.properties -Dsonar.login=$SONAR_TOKEN
     - docker run -v $(pwd):/app phpunit/phpunit tests
