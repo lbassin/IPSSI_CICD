@@ -2,13 +2,12 @@ language: php
 php:
     - '7.1'
 
-addons:
-    sonarcloud:
-        organization: "lbassin-github"
+services:
+    - docker
 
 install:
-    - composer install
+    - docker run --rm -v $(pwd):/app composer:1.8 install
 
 script:
-    - sonar-scanner -X
-    - phpunit
+    - docker run --rm -v $(pwd):/root/src newtmitch/sonar-scanner sonar-scanner -Dproject.settings=./src/sonar-project.properties -Dsonar.login=6687eb392224d7b93f0307b633c25b917ff6d4b2
+    - docker run --rm -v $(pwd):/app phpunit/phpunit tests
