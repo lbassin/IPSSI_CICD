@@ -1,9 +1,15 @@
-language: php
-php:
-    - '7.1'
+language: bash
+
+cache:
+    directories:
+        - $HOME/.composer/cache
+
+services:
+    - docker
 
 install:
-    - composer install
+    - docker run -v $(pwd):/app -v $HOME/.composer/cache:/tmp composer:1.8 install
 
 script:
-    - phpunit
+    - docker run -v $(pwd):/usr/src newtmitch/sonar-scanner -Dsonar.projectBaseDir=/usr/src -Dsonar.login=$SONAR_TOKEN
+    - docker run -v $(pwd):/app phpunit/phpunit tests
