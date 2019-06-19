@@ -6,8 +6,12 @@ services:
     - docker
 
 install:
-    - docker run --rm -v $(pwd):/app composer:1.8 install
+    - docker run -v $TRAVIS_BUILD_DIR:/app composer:1.8 install
+
+before_script:
+    - pwd
+    - docker run -v $TRAVIS_BUILD_DIR:/app -w /app alpine ls
 
 script:
-    - docker run --rm -v $(pwd):/root/src newtmitch/sonar-scanner sonar-scanner -X -Dproject.settings=./src/sonar-project.properties -Dsonar.login=$SONAR_TOKEN
-    - docker run --rm -v $(pwd):/app phpunit/phpunit tests
+    - docker run -v $TRAVIS_BUILD_DIR:/root/src newtmitch/sonar-scanner sonar-scanner -X -Dproject.settings=./src/sonar-project.properties -Dsonar.login=$SONAR_TOKEN
+    - docker run -v $TRAVIS_BUILD_DIR:/app phpunit/phpunit tests
