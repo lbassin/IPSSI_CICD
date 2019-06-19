@@ -11,5 +11,5 @@ install:
     - docker run -v $(pwd):/app -v $HOME/.composer/cache:/tmp composer:1.8 install
 
 script:
-    - docker run -v $(pwd):/usr/src newtmitch/sonar-scanner sonar-scanner -Dsonar.projectBaseDir=/usr/src -Dsonar.login=$SONAR_TOKEN -X
+    - docker run -v $(pwd):/usr/src newtmitch/sonar-scanner
     - docker run -v $(pwd):/app phpunit/phpunit tests
