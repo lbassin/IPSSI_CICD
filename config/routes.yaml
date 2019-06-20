@@ -1,3 +1,7 @@
 index:
     path: /
     controller: App\Controller\HomeController::handle
+
+random:
+    path: /random
+    controller: App\Controller\RandomController::handle
