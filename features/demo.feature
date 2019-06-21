@@ -7,7 +7,7 @@ Feature:
 
   Scenario: Displaying home page
     Given I am on the homepage
-    Then I should see "It works"
+    Then I should see "It doesn't work"
 
   Scenario: Executing home page javascript
     Given I am on the homepage
