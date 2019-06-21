@@ -1,0 +1,14 @@
+version: '3.6'
+services:
+    selenium-chrome:
+        image: selenium/node-chrome:3.141.59-dubnium  #remplacer par la dernière version
+        volumes:
+            - /dev/shm:/dev/shm
+        depends_on:
+            - selenium-hub
+        environment:
+            HUB_HOST: selenium-hub
+    selenium-hub:
+        image: selenium/hub:3.141.59-dubnium
+        ports:
+            - "4444:4444"

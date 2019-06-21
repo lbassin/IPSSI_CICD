@@ -10,6 +10,12 @@ class HomeController
 {
     public function handle(): Response
     {
-        return new Response('It works');
+        $script = <<<EOT
+    <script>
+        document.write('test');
+    </script>
+EOT;
+
+        return new Response("It works <br> $script");
     }
 }
