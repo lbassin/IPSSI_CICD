@@ -25,19 +25,23 @@ class FeatureContext extends MinkContext
             return;
         }
 
-        if ($this->getSession()->getDriver() instanceof Selenium2Driver) {
-            $stepLine = $event->getStep()->getLine();
-            $time = time();
-            $fileName = "./step-{$stepLine}-{$time}.png";
-            if (is_writable('.')) {
-                $screenshot = $this->getSession()->getDriver()->getScreenshot();
-                $stepText = $event->getStep()->getText();
-                if (file_put_contents($fileName, $screenshot)) {
-                    echo "Screenshot for '{$stepText}' placed in {$fileName}".PHP_EOL;
-                } else {
-                    echo "Screenshot failed: {$fileName} is not writable.";
-                }
-            }
+        if (!$this->getSession()->getDriver() instanceof Selenium2Driver) {
+            return;
+        }
+
+        $time = time();
+        $stepLine = $event->getStep()->getLine();
+        $fileName = "./var/behat/step-{$stepLine}-{$time}.png";
+
+        if (!is_writable('./var/behat')) {
+            return;
+        }
+
+        $screenshot = $this->getSession()->getDriver()->getScreenshot();
+        if (file_put_contents($fileName, $screenshot)) {
+            echo "Screenshot placed in {$fileName}".PHP_EOL;
+        } else {
+            echo "Screenshot failed: {$fileName} is not writable.";
         }
     }
 }

@@ -5,6 +5,7 @@
 Feature:
   Test feature
 
+  @javascript
   Scenario: Displaying home page
     Given I am on the homepage
     Then I should see "It doesn't work"
