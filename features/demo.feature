@@ -8,7 +8,7 @@ Feature:
   @javascript
   Scenario: Displaying home page
     Given I am on the homepage
-    Then I should see "It doesn't work"
+    Then I should see "It works"
 
   Scenario: Executing home page javascript
     Given I am on the homepage
