@@ -10,6 +10,9 @@ services:
 install:
     - docker run -v $(pwd):/app -v $HOME/.composer/cache:/tmp composer:1.8 install
 
+before_script:
+    - docker-compose up -f docker-compose.yml -f docker-compose.test.yml -d
+
 script:
     - docker run -v $(pwd):/usr/src newtmitch/sonar-scanner -Dsonar.projectBaseDir=/usr/src -Dsonar.login=$SONAR_TOKEN
     - docker run -v $(pwd):/app phpunit/phpunit tests
