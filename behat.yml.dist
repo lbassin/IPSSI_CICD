@@ -2,11 +2,21 @@ default:
     suites:
         default:
             contexts:
-                - FeatureContext:
-                    kernel: '@kernel'
-
+                - FeatureContext
     extensions:
         Behat\Symfony2Extension:
             kernel:
-                bootstrap: features/bootstrap/bootstrap.php
                 class: App\Kernel
+        Behat\MinkExtension:
+            base_url: "http://nginx/"                     # ici nous indiquons le nom du conteneur nginx (localhost ne renverrait plus la page que l'on souhaite pour les tests)
+            browser_name: "chrome"                        # le navigateur que nous voulons tester
+            default_session: selenium2
+            javascript_session: selenium2
+            selenium2:
+                wd_host: http://selenium-hub:4444/wd/hub  # l'adresse de notre hub, remplacer selenium-hub par le nom que vous aurez donné au conteneur
+                capabilities:
+                    browser: "chrome"                     # le navigateur que nous voulons tester
+            sessions:
+                default:
+                    symfony2: ~
+        Behatch\Extension: ~
