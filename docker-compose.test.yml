@@ -1,9 +1,11 @@
 version: '3.3'
 services:
     selenium-hub:
-        image: selenium/hub:3.141.59-dubnium
+        image: selenium/hub:3.141.59-radium
+        ports:
+          - 4444:4444
     selenium-chrome:
-        image: selenium/node-chrome:3.141.59-dubnium
+        image: selenium/node-chrome:3.141.59-radium
         volumes:
             - /dev/shm:/dev/shm
         depends_on:

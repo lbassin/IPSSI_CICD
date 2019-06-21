@@ -1,48 +1,43 @@
 <?php
 
-use Behat\Behat\Context\Context;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\KernelInterface;
+use Behat\Behat\Hook\Scope\AfterStepScope;
+use Behat\Mink\Driver\Selenium2Driver;
+use Behat\MinkExtension\Context\MinkContext;
 
-/**
- * This context class contains the definitions of the steps used by the demo 
- * feature file. Learn how to get started with Behat and BDD on Behat's website.
- * 
- * @see http://behat.org/en/latest/quick_start.html
- */
-class FeatureContext implements Context
+class FeatureContext extends MinkContext
 {
     /**
-     * @var KernelInterface
+     * If using the Selenium2Driver, will automatically screenshot any failed
+     * steps and save them in the current directory.
+     *
+     * Screenshots are named as "step-<step-line-number>-<timestamp>.png".
+     *
+     * @AfterStep
+     *
+     * @param AfterStepScope $event
+     *
+     * @throws \Behat\Mink\Exception\DriverException
+     * @throws \Behat\Mink\Exception\UnsupportedDriverActionException
      */
-    private $kernel;
-
-    /**
-     * @var Response|null
-     */
-    private $response;
-
-    public function __construct(KernelInterface $kernel)
+    public function takeScreenshotAfterFailedStep(AfterStepScope $event)
     {
-        $this->kernel = $kernel;
-    }
+        if ($event->getTestResult()->isPassed()) {
+            return;
+        }
 
-    /**
-     * @When a demo scenario sends a request to :path
-     */
-    public function aDemoScenarioSendsARequestTo(string $path)
-    {
-        $this->response = $this->kernel->handle(Request::create($path, 'GET'));
-    }
-
-    /**
-     * @Then the response should be received
-     */
-    public function theResponseShouldBeReceived()
-    {
-        if ($this->response === null) {
-            throw new \RuntimeException('No response received');
+        if ($this->getSession()->getDriver() instanceof Selenium2Driver) {
+            $stepLine = $event->getStep()->getLine();
+            $time = time();
+            $fileName = "./step-{$stepLine}-{$time}.png";
+            if (is_writable('.')) {
+                $screenshot = $this->getSession()->getDriver()->getScreenshot();
+                $stepText = $event->getStep()->getText();
+                if (file_put_contents($fileName, $screenshot)) {
+                    echo "Screenshot for '{$stepText}' placed in {$fileName}".PHP_EOL;
+                } else {
+                    echo "Screenshot failed: {$fileName} is not writable.";
+                }
+            }
         }
     }
 }
