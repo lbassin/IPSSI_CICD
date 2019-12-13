@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1479c7243d2ed845e00782a5a7813c0c",
+    "content-hash": "b1177b288944391f2689c2e1eabf4613",
     "packages": [
         {
             "name": "fzaninotto/faker",
-            "version": "v1.7.0",
+            "version": "v1.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fzaninotto/Faker.git",
-                "reference": "dd4564efb00c557559af29c2964fba764d0dfacc"
+                "reference": "fc10d778e4b84d5bd315dad194661e091d307c6f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/dd4564efb00c557559af29c2964fba764d0dfacc",
-                "reference": "dd4564efb00c557559af29c2964fba764d0dfacc",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/fc10d778e4b84d5bd315dad194661e091d307c6f",
+                "reference": "fc10d778e4b84d5bd315dad194661e091d307c6f",
                 "shasum": ""
             },
             "require": {
@@ -25,12 +25,14 @@
             },
             "require-dev": {
                 "ext-intl": "*",
-                "phpunit/phpunit": "^4.0 || ^5.0",
-                "squizlabs/php_codesniffer": "^1.5"
+                "phpunit/phpunit": "^4.8.35 || ^5.7",
+                "squizlabs/php_codesniffer": "^2.9.2"
             },
             "type": "library",
             "extra": {
-                "branch-alias": []
+                "branch-alias": {
+                    "dev-master": "1.9-dev"
+                }
             },
             "autoload": {
                 "psr-4": {
@@ -52,7 +54,7 @@
                 "faker",
                 "fixtures"
             ],
-            "time": "2017-08-15T16:34:15+00:00"
+            "time": "2019-12-12T13:22:17+00:00"
         },
         {
             "name": "psr/cache",
